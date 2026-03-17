@@ -1,16 +1,21 @@
 
 <?php
-// Verifica se está rodando no computador local ou na InfinityFree
-if ($_SERVER['SERVER_NAME'] == 'localhost') {
+// Verifica se está rodando local ou no Azure
+if ($_SERVER['SERVER_NAME'] == "localhost") {
+
     $host = "localhost";
     $user = "root";
     $pass = "";
-    $dbname = "if0_41409781_estrela"; 
+    $dbname = "estrelarastreamento";
+
 } else {
-    $host = "sql302.infinityfree.com";
-    $user = "if0_41409781";
-    $pass = "zAhxRqagZmPz6"; // Verifique se esta é a senha do Painel/FTP
-    $dbname = "if0_41409781_estrela"; // Substitua o XXX pelo nome exato que você criou
+
+    // Dados do MySQL do Azure
+    $host = "estrelaras-a56792f821-wpdbserver.mysql.database.azure.com";
+    $user = "lsojxiyqx@estrelaras-a56792f821-wpdbserver";
+    $pass = "@miakalu1";
+    $dbname = "estrelarastreamento"; // ou o nome do banco que você criou
+
 }
 
 $conn = new mysqli($host, $user, $pass, $dbname);
