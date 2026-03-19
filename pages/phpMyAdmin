@@ -1,8 +1,0 @@
-CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL
-);
-DELETE FROM usuarios WHERE email = 'admin@estrela.com';
-INSERT INTO usuarios (nome, email, senha) 
-VALUES ('Admin Estrela', 'admin@estrela.com', '$2y$10$8WvS2VlG4.F1uKx0l8yLDe8Hj7YQZz/b8YfVnS6V5Z6V5Z6V5Z6V5');
