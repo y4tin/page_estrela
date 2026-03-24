@@ -1,0 +1,538 @@
+/* =========================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#canvas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #111;
+    transition: background 0.5s ease;
+}
+
+body {
+    background-color: #333;
+    color: white;
+    line-height: 1.6;
+    text-align: center; /* Centraliza o texto de forma global e segura */
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* =========================================
+   2. HEADER E NAVEGAÇÃO
+   ========================================= */
+header {
+    background: #000000;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; 
+    border-bottom: 3px solid #ff0000;
+    animation: entradaSuave 1.5s ease-out, bordaRGB 6s linear infinite;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes entradaSuave {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bordaRGB {
+    0%, 100% { border-color: #ff0000; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
+    33% { border-color: #00ff00; box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3); }
+    66% { border-color: #0000ff; box-shadow: 0 5px 15px rgba(0, 0, 255, 0.3); }
+}
+
+header h1.n {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.6em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    
+    /* Brilho Neon fixo para dar profundidade */
+    text-shadow: 
+        0 0 7px rgba(59, 130, 246, 0.8),
+        0 0 10px rgba(59, 130, 246, 0.5);
+    
+    /* efeito de "linha de scanner" passando pelo texto */
+    background-size: 100% 10px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    animation: scanLine 3s linear infinite, glowPulse 2s ease-in-out infinite alternate;
+}
+
+/* Animação que faz uma linha "limpar" o texto de cima a baixo */
+@keyframes scanLine {
+    0% { background-position: 0 -100px; }
+    100% { background-position: 0 100px; }
+}
+
+/* Animação que faz o brilho aumentar e diminuir como uma lâmpada neon */
+@keyframes glowPulse {
+    from {
+        text-shadow: 0 0 5px #fdfeff, 0 0 10px #919191;
+        opacity: 0.9;
+    }
+    to {
+        text-shadow: 0 0 15px #fdfeff, 0 0 30px #727477, 0 0 40px #41444b;
+        opacity: 1;
+    }
+}
+
+/* Pequeno detalhe: um cursor piscando no final do nome */
+header h1.n::after {
+    content: '_';
+    animation: blink 0.8s infinite;
+    color: #ffffff;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #383838;
+    color: white;
+    transform: translateY(-4px); 
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+#btn-tema {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* =========================================
+   3. ESTRUTURA PRINCIPAL E CARDS
+   ========================================= */
+main {
+    max-width: 1000px;
+    margin: 40px auto; 
+    padding: 0 20px;
+}
+
+.cott {
+    background-color: #222222;
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    border-top: 4px solid #383838;
+    
+    /* Garante que o conteúdo interno (texto e grid) centralize */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+}
+
+.cott p {
+    max-width: 800px; /* Evita que o texto fique largo demais e difícil de ler */
+    margin: 0 auto 20px auto;
+}
+
+h2 {
+    font-size: 2.2em;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Foto com efeito RGB */
+.project-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 4px solid #3b82f6; 
+    display: block;
+    margin: 0 auto 20px auto; /* O margin auto centraliza a imagem */
+    animation: neonRGB 6s linear infinite;
+}
+
+@keyframes neonRGB {
+    0%, 100% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+    33% { border-color: #00ff00; box-shadow: 0 0 20px #00ff00; }
+    66% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+}
+
+/* =========================================
+   4. HABILIDADES (SKILLS) COM CORES
+   ========================================= */
+.skills-grid {
+    display: flex;
+    flex-wrap: flex;
+    gap: 20px;
+    padding: 20px 0;
+    margin: 20px auto;
+    width: 100%;
+    overflow-x: auto; 
+    scrollbar-width: none; /* Esconde no Firefox */
+    -ms-overflow-style: none; /* Esconde no Internet Explorer/Edge antigo */
+    
+    /* Centraliza se os itens couberem na tela */
+    justify-content: flex-start; 
+}
+
+
+/* Esconde a barra de rolagem no Chrome, Safari e Edge Moderno */
+.skills-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.skill-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 120px; 
+    min-height: 140px; 
+    background-color: #2a2a2a;
+    padding: 20px 10px;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #444;
+    gap: 10px;
+}
+
+/* Garante que o texto não quebre linha dentro da caixa */
+.skill-box span {
+    white-space: nowrap;
+}
+
+.skill-box i { font-size: 3em; color: #888; transition: 0.3s; }
+.skill-box span { font-size: 0.9em; color: #ccc; font-weight: bold; }
+
+/* Hovers Coloridos */
+.skill-box:hover { transform: translateY(-10px); background-color: #1a1a1a; }
+.skill-box[title="HTML5"]:hover { border-color: #e34c26; box-shadow: 0 0 20px #e34c26; }
+.skill-box[title="HTML5"]:hover i { color: #e34c26; }
+.skill-box[title="CSS3"]:hover { border-color: #264de4; box-shadow: 0 0 20px #264de4; }
+.skill-box[title="CSS3"]:hover i { color: #264de4; }
+.skill-box[title="JavaScript"]:hover { border-color: #f7df1e; box-shadow: 0 0 20px #f7df1e; }
+.skill-box[title="JavaScript"]:hover i { color: #f7df1e; }
+.skill-box[title="Python"]:hover { border-color: #3776ab; box-shadow: 0 0 20px #3776ab; }
+.skill-box[title="Python"]:hover i { color: #3776ab; }
+.skill-box[title="Java"]:hover {border-color: #f89820;box-shadow: 0 0 20px rgba(248, 152, 32, 0.4);}
+.skill-box[title="Java"]:hover i { color: #f89820; }
+.skill-box[title="MySQL"]:hover {border-color: #00758f;box-shadow: 0 0 20px rgba(0, 117, 143, 0.4);}
+.skill-box[title="MySQL"]:hover i { color: #00758f; }
+.skill-box[title="PHP"]:hover {border-color: #777bb4;box-shadow: 0 0 20px rgba(119, 123, 180, 0.4);}
+.skill-box[title="PHP"]:hover i { color: #777bb4; }
+.skill-box[title="C#"]:hover {border-color: #ea00ff;box-shadow: 0 0 20px rgba(114, 59, 136, 0.4);}
+.skill-box[title="C#"]:hover i { color: #ea00ff; }
+
+
+/* =========================================
+   5. CONTATO E BOTÕES
+   ========================================= */
+#Contato ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    padding: 0;
+}
+
+.btn {
+    background: linear-gradient(45deg, #555555, #222222);
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    margin: 10px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(45deg, #333, #666);
+}
+
+/* =========================================
+   6. TEMA CLARO E ANIMAÇÕES
+   ========================================= */
+body.tema-claro { background-color: #e2e8f0; color: #1e293b; }
+body.tema-claro #canvas-bg { background: #f1f5f9; }
+body.tema-claro .cott { background-color: #ffffff; border-top-color: #cbd5e1; }
+body.tema-claro h2, body.tema-claro h3 { color: #1e293b; }
+body.tema-claro header { background: #ffffff; border-bottom-color: #cbd5e1; }
+body.tema-claro header h1.n, body.tema-claro #btn-tema { color: #1e293b; }
+body.tema-claro header h1.n::after { color: #1e293b; }
+
+.escondido { opacity: 0; transform: translateY(40px); transition: 0.8s; }
+.mostrar { opacity: 1; transform: translateY(0); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #1e1e1e; }
+::-webkit-scrollbar-thumb { background: #555; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+
+/* 1. Remove o fundo cinza e a borda da caixa do relógio */
+/* 1. O Box de Vidro (Tamanho Reduzido) */
+.python-section.cott {
+    background: rgba(255, 255, 255, 0.03) !important; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+
+    /* AJUSTES DE TAMANHO */
+    max-width: 450px;      /* Controla a largura (deixe menor se quiser) */
+    margin: 20px auto;     /* Centraliza e dá espaço das outras seções */
+    padding: 15px !important; /* Diminui a altura da caixa */
+    min-height: auto !important; /* Impede que ela fique esticada para baixo */
+}
+
+/* 2. Container interno */
+.python-section .terminal-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 3. Relógio RGB */
+#relogio-py {
+    background: linear-gradient(
+        to right, 
+        #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rgb-animation 5s linear infinite;
+    
+    font-weight: bold;
+    font-size: 3em !important; /* Diminuí levemente para caber no box menor */
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1); 
+}
+
+/* 4. Data e Status */
+#data-py {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+/* Animação RGB */
+@keyframes rgb-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* =========================================
+   7. IDE DE JAVA (ESTILO VS CODE)
+   ========================================= */ 
+/* Container Principal da IDE */
+.ide-window {
+    background: rgba(30, 30, 30, 0.6) !important; /* Transparência */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* Barra de Título */
+.ide-header {
+    background: rgba(45, 45, 45, 0.8);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.ide-controls { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.ide-tab {
+    margin-left: 20px;
+    background: #1e1e1e;
+    color: #fff;
+    padding: 5px 15px;
+    font-size: 12px;
+    border-radius: 5px 5px 0 0;
+    font-family: monospace;
+}
+
+/* Área do Código */
+.ide-body {
+    display: flex;
+    padding: 15px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.line-numbers {
+    color: #555;
+    padding-right: 15px;
+    text-align: right;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cores de Sintaxe (Estilo One Dark/Dracula) */
+.keyword { color: #c586c0; }
+.class-name { color: #4ec9b0; }
+.method { color: #dcdcaa; }
+.type { color: #569cd6; }
+.number { color: #b5cea8; }
+.string { color: #ce9178; }
+
+/* Botões da IDE */
+.ide-actions {
+    padding: 10px 15px;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    gap: 10px;
+}
+
+.btn-run { background: #27c93f; color: #000; border: none; padding: 5px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+.btn-stop { background: #444; color: #fff; border: none; padding: 5px 15px; border-radius: 3px; cursor: pointer; }
+
+/* Terminal */
+.ide-terminal {
+    background: #000;
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 12px;
+    border-top: 1px solid #333;
+}
+
+.terminal-tab {
+    background: #333;
+    color: #fff;
+    width: fit-content;
+    padding: 2px 10px;
+}
+
+.terminal-text { padding: 10px; min-height: 60px; }
+.path { color: #58a6ff; }
+.ide-actions {
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Botão Adicionar (Verde) */
+.btn-add {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-add:hover { background: #218838; transform: scale(1.05); }
+
+/* Botão Retirar (Vermelho) */
+.btn-remove {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-remove:hover { background: #c82333; transform: scale(1.05); }
+
+/* Botão Reset (Cinza) */
+.btn-reset {
+    background: #4e4e4e;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-reset:hover { background: #666; }
+/* seção de Java transparente e pequena */
+.java-section.cott {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    max-width: 450px; /* Bem compacto */
+    margin: 20px auto;
+    padding: 10px !important;
+    border-radius: 12px;
+}
+
+.ide-window {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1e1e1e;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 150px;
+    display: block;
+}
